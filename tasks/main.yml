@@ -1,0 +1,33 @@
+---
+# tasks file for php71
+- name: php71/package - install packages
+  yum:
+    state: present
+    name: "{{ item }}"
+    disable_gpg_check: yes
+  with_items:
+    - https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+
+- name: php71/package - install packages
+  yum:
+    state: present
+    name: "{{ item }}"
+    disable_gpg_check: yes
+  with_items:
+    - mod_php71w
+    - php71w-cli
+    - php71w-mysqlnd
+    - php71w-pdo
+    - php71w-common
+
+- name: php71/php.ini file
+  file:
+    src: etc_php.ini
+    dest: /etc/php.ini
+    owner: root
+    group: root
+    mode: 0644
+    serole: object_r
+    setype: etc_t
+    seuser: system_u
+    selevel: s0
